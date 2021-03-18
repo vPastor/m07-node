@@ -16,4 +16,39 @@ router.get("/",function(req,res,next){
        res.json(chat);
 });
 
+router.get("/list",function(req,res,next){
+  //res.send("HOLA MUNDOO!")
+  res.json(chatCtrl.load);
+
+  
+});
+
+router.get("/create",function(req,res,next){
+  //res.send("HOLA MUNDOO!")
+
+});
+
+router.get("/filtraruser/:user",function(req,res,next){
+  //res.send("HOLA MUNDOO!")
+
+     res.json(chat);
+});
+
+router.get("/filtrarestado/:estado",function(req,res,next){
+  //res.send("HOLA MUNDOO!")
+
+     res.json(chat);
+});
+
+router.get("/delete/:id",function(req,res,next){
+  //res.send("HOLA MUNDOO!")
+
+     res.json(chat);
+});
+router.get("/cambiarestado/:id",function(req,res,next){
+  //res.send("HOLA MUNDOO!")
+
+     res.json(chat);
+});
+
 module.exports = router;

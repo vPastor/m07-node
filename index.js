@@ -5,6 +5,12 @@ dotenv.config();
 //var io = require("socket.io").listen(server);
 var app = express();
 var path = require("path");
+var ctrlDir = "/controllers";
+
+
+var chatCtrl = require(path.join(ctrlDir, "chat"));
+
+
 var router = express.Router();
 
 //INTENTANDO IMPORTAR LAS VARIABLES DE .ENV

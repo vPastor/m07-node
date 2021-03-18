@@ -1,0 +1,23 @@
+extends layout.pug
+
+block content
+    h1 Chat
+    #chat(class="container border" style="width:400px;height:300px;overflow:scroll;margin-left:0")
+    div(class="input-group")
+      input(id="msg" type="text" style="width:300px" aria-describedby="send")
+      .input-group-append
+        button(class="btn btn-outline-secondary" style="width:100px" type="button" id="send") Enviar
+
+    script(type='text/javascript').
+      $("#send").click(function(){
+        $("#chat").append(
+        '<div style="text-align:right">'
+        +$("#msg").val()
+        +'<span class="badge badge-secondary">'
+        +"Yo"
+        +"</span>"
+        +"</div><br>")
+        $('#msg').val('');
+        console.log();
+      })
+          

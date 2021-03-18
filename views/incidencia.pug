@@ -1,0 +1,37 @@
+extends layout.pug
+
+block content
+    
+    form(class="border border-primary" style="width:60%;padding:10px;margin:10px")
+      h1.border-bottom Nueva Incidencia
+      div.form-group
+        label(for="name") Nombre:
+        input.form-control(id="name" name="name" type="text")
+      div.form-group
+        label(for="dni") DNI:
+        input.form-control(id="dni" name="dni" type="text")
+      div.form-group
+        label(for="tipo") Tipo de Incidencia:
+        select.form-control(id="tipo" name="tipo")
+          option Tipo 1
+          option Tipo 2
+          option Tipo 3
+          option Tipo 4
+      div.form-group
+        label(for="urg") Urgencia:
+        div.form-group(id="urg")
+          div(class="form-check form-check-inline")
+            input.form-check-input(name="urg" type="radio" id="Baja" value="Baja")
+            label.form-check-label(for="Baja") Baja
+          div(class="form-check form-check-inline")
+            input.form-check-input(name="urg" type="radio" id="Media" value="Media")
+            label.form-check-label(for="Media") Media
+          div(class="form-check form-check-inline")
+            input.form-check-input(name="urg" type="radio" id="Alta" value="Alta")
+            label.form-check-label(for="Alta") Alta
+      div.form-group
+        label(for="desc") Descripcion:
+        textarea.form-control(id="desc" name="desc" type="text")
+      button(class="btn btn-outline-secondary" type="submit" id="send") Enviar
+
+          
