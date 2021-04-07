@@ -16,6 +16,17 @@ services:
       - ${PORT}:${PORT}
     networks:
       - app-network
+  mongo:
+      image: mongo:4
+      container_name: mongo_chat
+      restart: unless-stopped
+      environment: 
+        - MONGO_INITDB_ROOT_USERNAME : ${MONGO_ROOT_USER}
+        - MONGO_INITDB_ROOT_PASSWORD : ${MONGO_ROOT_USER}
+      ports:
+        - ${MONGO_PORT}:${MONGO_PORT}
+      volumes: 
+        -${DATA_PATH}:/data/db
 
 #Docker Networks
 networks:

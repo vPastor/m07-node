@@ -8,16 +8,6 @@ block content
       .input-group-append
         button(class="btn btn-outline-secondary" style="width:100px" type="button" id="send") Enviar
 
-    script(type='text/javascript').
-      $("#send").click(function(){
-        $("#chat").append(
-        '<div style="text-align:right">'
-        +$("#msg").val()
-        +'<span class="badge badge-secondary">'
-        +"Yo"
-        +"</span>"
-        +"</div><br>")
-        $('#msg').val('');
-        console.log();
-      })
+    script(type='text/javascript' src="/js/chat.js")
+     
           

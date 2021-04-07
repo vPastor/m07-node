@@ -5,19 +5,13 @@ dotenv.config();
 //var io = require("socket.io").listen(server);
 var app = express();
 var path = require("path");
-var ctrlDir = "/controllers";
-
-
-var chatCtrl = require(path.join(ctrlDir, "chat"));
-
-
+var ctrlDir = "app/controllers";
+//var chatCtrl = require(path.join(ctrlDir, "chat"));
+var chatCtrl = require("./app/controllers/chat");
 var router = express.Router();
 
 //INTENTANDO IMPORTAR LAS VARIABLES DE .ENV
 const port = process.env.PORT;
-console.log('Your port is '+port);
-
-//ESTA FUNCION NO RECUERDO PARA QUE SIRVE
 var server = require("http")
 .createServer(app)
 .listen(port,()=>{
@@ -29,8 +23,8 @@ app.use(express.static(__dirname+'/views'));
 //ESTO ES PARA DECIRLE A EXPRESS DE DONDE COGER LAS VISTAS
 //ENRUTADOR REDIRIGIENDO A ROUTES/GETS
 //SE PUEDE HACER CON CUALQUIER SITUACION
-var getRoutes = require('./routes/gets');
-var apis = require('./routes/api');
+var getRoutes = require('./app/routes/gets');
+var apis = require('./app/routes/api');
 app.use('/', getRoutes);
 app.use('/api', apis);
 
