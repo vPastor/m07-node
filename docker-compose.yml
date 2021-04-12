@@ -26,7 +26,7 @@ services:
       ports:
         - ${MONGO_PORT}:${MONGO_PORT}
       volumes: 
-        - /tmp/data:/data/db
+        - dbdata:/data/db
       networks:
         - app-network
 

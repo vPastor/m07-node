@@ -9,15 +9,16 @@ exports.create = async (req) => {
     var res = await incidencia.save((err, res) => {
         if (err) console.log(err);
         console.log("INSERTADO EN LA DB");
-        
+        console.log(res);
     });
     return res;
 };
 
-exports.list = async () => {
-
+exports.list = async (req,res) => {
+    
     var incidencia = await incidencias.find({});
-    return res.status(200).json(incidencia);
+    console.log(incidencia);
+    return incidencia;
 
 };
 exports.edit = async (req) => {
