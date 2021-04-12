@@ -1,11 +1,9 @@
 version: '3'
 services:
-  #PHP Service
   app:
     image: node:15-alpine3.10
     container_name: app_${DOCKER_NAME}
     restart: unless-stopped
-    #command: bash /scripts/init.sh
     entrypoint: sh /scripts/init.sh
     tty: true
     working_dir: /app
@@ -16,17 +14,19 @@ services:
       - ${PORT}:${PORT}
     networks:
       - app-network
-  mongo:
+      
+  mongoz:
       image: mongo:4
-      container_name: mongo_chat
+      container_name: mongo_chatz
       restart: unless-stopped
       environment: 
-        - MONGO_INITDB_ROOT_USERNAME : ${MONGO_ROOT_USER}
-        - MONGO_INITDB_ROOT_PASSWORD : ${MONGO_ROOT_USER}
+        - MONGO_INITDB_ROOT_USERNAME-${MONGO_ROOT_USER}
+        - MONGO_INITDB_ROOT_PASSWORD-${MONGO_ROOT_USER}
+        - MONGO_INITDB_DATABASE=${MONGO_DB}
       ports:
         - ${MONGO_PORT}:${MONGO_PORT}
       volumes: 
-        -${DATA_PATH}:/data/db
+        - ${DATA_PATH}:/data/db
 
 #Docker Networks
 networks:
