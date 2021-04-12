@@ -9,16 +9,7 @@ var ctrlDir = "app/controllers";
 //var chatCtrl = require(path.join(ctrlDir, "chat"));
 var chatCtrl = require("./app/controllers/chat");
 var router = express.Router();
-//CONECTAR A LA BASE DE DATOS
-var mongoose = require("mongoose");
-mongoose.connect(
-    "mongodb://devroot:devroot@mongoz:27018/chatz?authSource=admin",{ useUnifiedTopology: true , useCreateIndex : true, useNewUrlParser:true},
-    /*'mongodb://${process.env.MONGO_ROOT_USER}:${process.env.MONGO_ROOT_PASSWORD}@${process.env.MONGO_URI}:${process.env.MONGO_PORT}/${process.env.MONGO_DB}authSource=admin' ,*/
-    (err,res)=>{
-        if(err) console.log('ERROR NO SE HA PODIDO CONECTAR A LA BASE DE DATOS'+ err);
-        else console.log('Database online: '+process.env.MONGO_DB);
-    }
-);
+
 
 //INTENTANDO IMPORTAR LAS VARIABLES DE .ENV
 const port = process.env.PORT;
@@ -41,7 +32,18 @@ app.use('/', getRoutes);
 app.use('/api', apis);
 
 
+//CONECTAR A LA BASE DE DATOS
+var mongoose = require("mongoose");
+//mongoose.connect('mongodb://devroot:devroot@mongo/chat?authMechanism=SCRAM-SHA-1');
 
+mongoose.connect(
+    'mongodb://devroot:devroot@mongo:27017/chat?authSource=admin',
+    /*'mongodb://'+process.env.MONGO_ROOT_USER +':'+process.env.MONGO_ROOT_PASSWORD+'@'+process.env.MONGO_URI+':'+process.env.MONGO_PORT+'/'+process.env.MONGO_DB+'authSource=admin'*/{ useUnifiedTopology: true , useCreateIndex : true, useNewUrlParser:true},
+    (err,res)=>{
+        if(err) console.log('ERROR NO SE HA PODIDO CONECTAR A LA BASE DE DATOS'+ err);
+        else console.log('Database online: '+process.env.MONGO_DB);
+    }
+);
 //SOCKET NI IDEA
 /*
 var io = require("socket.io").listen(server);
