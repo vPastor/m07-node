@@ -37,14 +37,30 @@ app.use('/', getRoutes);
 app.use('/api', apis);
 
 var io = require("socket.io")(server);
+var nicknames = {};
 console.log("hola llega");
-io.on("connection",(socket)=>{
+io.on("connection",(socket)=>{  
     console.log('conectado a socket');
     if(!socket.user) socket.user="Pedro";
-    socket.on("newMsg",(data)=>{
+    socket.on("sendmsg",(data)=>{
     console.log(data);
-    socket.broadcast.emit("toClient",data)})
+    io.sockets.emit("newMsg",data)});
+    socket.on("newUser", function(data, callback){
+        if(data in nicknames)
+        {
+            callback(false);
+        }
+        else{
+            callback(true);
+            socket.nickname = data;
+            nicknames[data] = 1;
+            updateNicknames();
+        }
+    })
 });
+function updateNicknames(){
+    io.sockets.emit('usernames',nicknames);
+}
 //CONECTAR A LA BASE DE DATOS
 var mongoose = require("mongoose");
 //mongoose.connect('mongodb://devroot:devroot@mongo/chat?authMechanism=SCRAM-SHA-1');
