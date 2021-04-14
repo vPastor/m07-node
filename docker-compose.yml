@@ -17,7 +17,7 @@ services:
       
   mongo:
       image: mongo:4
-      container_name: mongo_chat
+      container_name: mongo_trexonly
       restart: unless-stopped
       environment: 
         - MONGO_INITDB_ROOT_USERNAME-${MONGO_ROOT_USER}

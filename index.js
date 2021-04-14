@@ -1,8 +1,11 @@
+//INICIALIZACION DE VARIABLES
+var hbs = require('hbs');
 var express = require("express");
+//VARIABLES DE ENVIROMENT
 var dotenv = require('dotenv');
 dotenv.config();
+
 var bodyParser = require('body-parser');
-//var io = require("socket.io").listen(server);
 var app = express();
 var path = require("path");
 var ctrlDir = "app/controllers";
@@ -11,7 +14,7 @@ var chatCtrl = require("./app/controllers/chat");
 var router = express.Router();
 
 
-//INTENTANDO IMPORTAR LAS VARIABLES DE .ENV
+
 const port = process.env.PORT;
 var server = require("http")
     .createServer(app)
@@ -21,7 +24,7 @@ var server = require("http")
 app.set("views", __dirname + "/app/views");
 //app.use(express.static(__dirname+'/app/public'));
 app.use(express.static(path.join(__dirname, "public")));
-app.set("views engine", "pug");
+app.set("views engine", "hbs");
 
 //ESTO ES PARA DECIRLE A EXPRESS DE DONDE COGER LAS VISTAS
 //ENRUTADOR REDIRIGIENDO A ROUTES/GETS
@@ -36,50 +39,7 @@ app.use(bodyParser.json())
 app.use('/', getRoutes);
 app.use('/api', apis);
 
-var io = require("socket.io")(server);
-var nicknames = {};
-console.log("hola llega");
-io.on("connection", (socket) => {
-    console.log('conectado a socket');
-    if (!socket.user) socket.user = "Pedro";
-    socket.on("sendmsg", (data) => {
-        console.log(data);
-        io.sockets.emit("newMsg", data)
-    });
-    socket.on("sendmsg" + 1, (data) => {
-        io.sockets.emit("newMsg" + 1, data)
-    });
-    socket.on("sendmsg" + 2, (data) => {
 
-        io.sockets.emit("newMsg" + sala, data)
-    });
-    socket.on("sendmsg" + 4, (data) => {
-
-        io.sockets.emit("newMsg" + 2, data)
-    });
-    socket.on("sendmsg" + 3, (data) => {
-
-        io.sockets.emit("newMsg" + 3, data)
-    });
-    socket.on("sendmsg" + 9, (data) => {
-
-        io.sockets.emit("newMsg" + 9, data)
-    });
-    socket.on("newUser", function (data, callback) {
-        if (data in nicknames) {
-            callback(false);
-        }
-        else {
-            callback(true);
-            socket.nickname = data;
-            nicknames[data] = 1;
-            updateNicknames();
-        }
-    })
-});
-function updateNicknames() {
-    io.sockets.emit('usernames', nicknames);
-}
 //CONECTAR A LA BASE DE DATOS
 var mongoose = require("mongoose");
 //mongoose.connect('mongodb://devroot:devroot@mongo/chat?authMechanism=SCRAM-SHA-1');
@@ -87,23 +47,7 @@ mongoose.connect('mongodb://mongo:27017/chat', { useNewUrlParser: true }, (err, 
     if (err) console.log('ERROR NO SE HA PODIDO CONECTAR A LA BASE DE DATOS => ' + err);
     else console.log('Database online: ' + process.env.MONGO_DB);
 });
-/*mongoose.connect(
-    'mongodb://devroot:devroot@mongo:27017/chat',
-    /*'mongodb://'+process.env.MONGO_ROOT_USER +':'+process.env.MONGO_ROOT_PASSWORD+'@'+process.env.MONGO_URI+':'+process.env.MONGO_PORT+'/'+process.env.MONGO_DB+'authSource=admin'{ useUnifiedTopology: true , useCreateIndex : true, useNewUrlParser:true},
-    (err,res)=>{
-        if(err) console.log('ERROR NO SE HA PODIDO CONECTAR A LA BASE DE DATOS => '+ err);
-        else console.log('Database online: '+process.env.MONGO_DB);
-    }
-);*/
-//SOCKET NI IDEA
-/*
-var io = require("socket.io").listen(server);
-io.sockets.on('connection', function(socket){
-    socket.on('sendMessage',function(data){
-        io.socket.emit('newMessage',{msg:data});
-    });
-});  */
-/*Socket functions */
+
 
 
 //ESTAS DOS LINEAS NO RECUERDO
