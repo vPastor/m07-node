@@ -9,11 +9,16 @@ block content
           option(value=i) Sala de chat #{i}
           -}
         #chat(class="container border" style="width:400px;height:300px;overflow:scroll;margin-left:0")
-        div(id="chat") #{text}
+        div(id="chat" style="float:left") #{text}
         input(type="text" id="msg" placeholder="")
         input(type="submit")
-
-    script(type='text/javascript', src='/socket.io/socket.io.js')s
+        div(id="users") Users
+    div(id="nickContainer" style="width::300px;text-align:center;margin:0 auto;")
+      input(type="text" id="nickname" placeholder="Enter your username")
+      span
+        button(type="submit" id="setNick") OK
+      p(id="errorn") The nickname is already taken
+    script(type='text/javascript', src='/socket.io/socket.io.js')
     script(type='text/javascript', src='/js/chat.js')
   
      

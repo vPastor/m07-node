@@ -11,6 +11,12 @@ router.get("/",function(req,res,next){
 router.get("/chat",function(req,res,next){
     res.render("chat.pug");
 });
+router.get("/chat/:sala",function(req,res,next){
+    var sala = req.params.sala;
+    var data = {"sala":sala, "currentuser":currentuser };
+    console.log(data);
+    res.render("chat.pug",data);
+});
 router.get("/chat/new",async function(req,res,next){
     res.render("newAsignatura.pug",data);
 });
