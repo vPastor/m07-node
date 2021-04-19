@@ -1,5 +1,5 @@
 //INICIALIZACION DE VARIABLES
-var hbs = require('hbs');
+let hbs = require('express-handlebars');
 var express = require("express");
 //VARIABLES DE ENVIROMENT
 var dotenv = require('dotenv');
@@ -22,9 +22,28 @@ var server = require("http")
         console.log("server running on: " + port);
     });
 app.set("views", __dirname + "/app/views");
+
 //app.use(express.static(__dirname+'/app/public'));
 app.use(express.static(path.join(__dirname, "public")));
-app.set("views engine", "hbs");
+app.use(express.static(path.join(__dirname, '/app/views/images')));
+
+// view engine setup
+app.set('view engine', 'hbs');
+
+app.engine( 'hbs', hbs( {
+  extname: 'hbs',
+  defaultView: 'layout',
+  layoutsDir: __dirname + '/app/views/layouts/',
+  partialsDir: __dirname + '/app/views/partials/'
+}));
+/*app.engine(
+    'hbs',
+    expressHbs({
+       extname: "hbs",
+       defaultLayout: "",
+       layoutsDir: "",
+    })
+ );*/
 
 //ESTO ES PARA DECIRLE A EXPRESS DE DONDE COGER LAS VISTAS
 //ENRUTADOR REDIRIGIENDO A ROUTES/GETS
@@ -39,7 +58,7 @@ app.use(bodyParser.json())
 app.use('/', getRoutes);
 app.use('/api', apis);
 
-
+/*
 //CONECTAR A LA BASE DE DATOS
 var mongoose = require("mongoose");
 //mongoose.connect('mongodb://devroot:devroot@mongo/chat?authMechanism=SCRAM-SHA-1');
@@ -48,7 +67,7 @@ mongoose.connect('mongodb://mongo:27017/chat', { useNewUrlParser: true }, (err, 
     else console.log('Database online: ' + process.env.MONGO_DB);
 });
 
-
+*/
 
 //ESTAS DOS LINEAS NO RECUERDO
 app.use("/", router);
